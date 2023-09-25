@@ -1,6 +1,78 @@
 # [Youtube video](https://www.youtube.com/watch?v=M9DoUszVCFc&list=PL0b6OzIxLPbz7JK_YYrRJ1KxlGG4diZHJ)
 # [You Make](https://invoices.hirewebxperts.com/pms/)
 
+## if you get any error
+### like this
+```
+ SQLSTATE[42000]: Syntax error or access violation: 1071 Specified key was too long; max key length is 1000 bytes (Connection: mysql, SQL: alter table `personal_access_tokens` add index `personal_access_tokens_tokenable_type_tokenable_id_index`(`tokenable_type`, `tokenable_id`))
+
+  at vendor\laravel\framework\src\Illuminate\Database\Connection.php:801
+    797▕                     $this->getName(), $query, $this->prepareBindings($bindings), $e
+    798▕                 );
+    799▕             }
+    800▕
+  ➜ 801▕             throw new QueryException(
+    802▕                 $this->getName(), $query, $this->prepareBindings($bindings), $e
+    803▕             );
+    804▕         }
+    805▕     }
+
+  1   vendor\laravel\framework\src\Illuminate\Database\Connection.php:580
+      PDOException::("SQLSTATE[42000]: Syntax error or access violation: 1071 Specified key was too long; max key length is 1000 bytes")
+
+  2   vendor\laravel\framework\src\Illuminate\Database\Connection.php:580
+      PDOStatement::execute()
+```
+
+## to do
+## path => config/database.php
+## from
+```
+        'mysql' => [
+            'driver' => 'mysql',
+            'url' => env('DATABASE_URL'),
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '3306'),
+            'database' => env('DB_DATABASE', 'forge'),
+            'username' => env('DB_USERNAME', 'forge'),
+            'password' => env('DB_PASSWORD', ''),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
+```
+
+## to
+```
+        'mysql' => [
+            'driver' => 'mysql',
+            'url' => env('DATABASE_URL'),
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '3306'),
+            'database' => env('DB_DATABASE', 'forge'),
+            'username' => env('DB_USERNAME', 'forge'),
+            'password' => env('DB_PASSWORD', ''),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
+```
+
+
 # Q1. What is Laravel 
 ### Ans = Laravel is a free, open-source PHP web framework, created by Taylor Otwell and intended for the development of web applications following the model–view–controller  (MVC) architectural pattern
 
@@ -656,7 +728,22 @@ use app\Http\Controllers\TestingContoller
 
 # Modal
 
-![Moda](./img/Modal.PNG)
+## Create modal
+```
+php artisan make:model [Name]
+```
+## Add
+```
+class passwordModal extends Model
+{
+    use HasFactory;
+    protected $table = '[TableName]';
+    protected $primaryKey = '[tablerimaryID]';
+}
+```
+
+
+![Modal](./img/Modal.PNG)
 
 ## 1. file path of Database
 ### Path => conf/database.php  
